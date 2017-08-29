@@ -19,12 +19,12 @@ if(WIN32)
 		w32-pthreads)
 	endif()
 elseif(APPLE)
-elseif(UNIX)
 	set(easerpc_PLATFORM_SOURCES
 		util/threading-posix.c
 		util/platform-nix.c)
 	set(easerpc_PLATFORM_HEADERS
 		util/threading-posix.h)
+elseif(UNIX)
 endif()
 
 if(MSVC)
@@ -34,7 +34,9 @@ if(MSVC)
 endif()
 
 set(easerpc_util_SOURCES
-	util/cJSON.c)
+	util/cJSON.c
+	util/bmem.c
+	util/base.c)
 set(easerpc_util_HEADERS
 	util/vc/vc_inttypes.h
 	util/vc/vc_stdbool.h
@@ -42,7 +44,9 @@ set(easerpc_util_HEADERS
 	util/c99defs.h
 	util/threading.h
 	util/platform.h
-	util/cJSON.h)
+	util/cJSON.h
+	util/bmem.h
+	util/base.h)
 
 set(easerpc_test_SOURCES
 	test/broker.cpp
@@ -142,4 +146,6 @@ function(install_easerpc)
 		VERBATIM)
 endfunction()
 
-install_easerpc()
+if(WIN32)
+	install_easerpc()
+endif()

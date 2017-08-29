@@ -17,7 +17,14 @@
 #include <unistd.h>
 #include <stdint.h>
 
+#include <sys/wait.h>
+
 void os_sleep_ms(uint32_t duration)
 {
 	usleep(duration*1000);
+}
+
+void os_breakpoint()
+{
+        raise(SIGTRAP);
 }

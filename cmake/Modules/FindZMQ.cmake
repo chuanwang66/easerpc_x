@@ -32,7 +32,7 @@ find_path(ZMQ_INCLUDE_DIR
 		include)
 
 find_library(ZMQ_LIB
-	NAMES ${_ZMQ_LIBRARIES} libzmq libzmq-v120-mt-4_0_4
+	NAMES ${_ZMQ_LIBRARIES} libzmq libzmq-v120-mt-4_0_4 zmq
 	HINTS
 		ENV zmqPath${_lib_suffix}
 		ENV zmqPath
@@ -56,6 +56,10 @@ find_library(ZMQ_LIB
 include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(zmq DEFAULT_MSG ZMQ_LIB ZMQ_INCLUDE_DIR)
 mark_as_advanced(ZMQ_INCLUDE_DIR ZMQ_LIB)
+
+#message(STATUS "ZMQ_INCLUDE_DIR==>" ${ZMQ_INCLUDE_DIR})
+#message(STATUS "ZMQ_LIB==>" ${ZMQ_LIB})
+#message(STATUS "ZMQ_FOUND==>" ${ZMQ_FOUND})
 
 if(ZMQ_FOUND)
 	set(ZMQ_INCLUDE_DIRS ${ZMQ_INCLUDE_DIR})

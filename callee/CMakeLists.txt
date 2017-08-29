@@ -35,4 +35,6 @@ function(install_callee)
 		VERBATIM)
 endfunction()
 
-install_callee()
+if(WIN32)
+	install_callee()
+endif()

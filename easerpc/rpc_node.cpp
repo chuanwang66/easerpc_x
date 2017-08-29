@@ -316,7 +316,8 @@ int rpc_func_map::register_function(const char *fname, ftype fpointer) {
 		return -3;
 	}
 	
-	map.emplace(fname, fpointer);
+	//map.emplace(fname, fpointer);
+	map.insert(std::make_pair<std::string, ftype>(fname, fpointer));
 
 	pthread_mutex_unlock(&lock);
 

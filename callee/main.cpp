@@ -1,12 +1,16 @@
+#if defined(_WIN32)
 #include <windows.h>
+#endif
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include <math.h>
 
 #include "cJSON.h"
 #include "easerpc.h"
 
-void add(const char *arg, char *res, unsigned int res_maxsize) {
+void add(const char *arg, char *res, size_t res_maxsize) {
 	int sum;
 	cJSON *res_json = cJSON_CreateObject();
 	cJSON *param1 = NULL;
@@ -41,7 +45,7 @@ void add(const char *arg, char *res, unsigned int res_maxsize) {
 	cJSON_Delete(res_json);
 }
 
-void dummy(const char *command, char *res, unsigned int res_maxsize) {
+void dummy(const char *command, char *res, size_t res_maxsize) {
 	strncpy(res, "{}", res_maxsize);	//overflow safe
 	res[res_maxsize - 1] = 0;	//null terminated
 }
@@ -53,7 +57,7 @@ int main(int argc, char* argv[])
 		exit(1);
 	}
 
-	short server_id = 0;
+	int server_id = 0;
 	if (sscanf(argv[1], "%d", &server_id) != 1) {
 		printf("usage: %s sid [sid should be an integer!]\n", argv[0]);
 		exit(2);

@@ -7,14 +7,8 @@
 
 #include "util/cJSON.h"
 
-#ifdef _DEBUG
-#	define PRINT(...) fprintf(stdout, __VA_ARGS__);
-#else
-#	define PRINT(fmt) do {} while (0);
-#endif
-
-std::unique_ptr<rpc_node> node = NULL;
-static std::unique_ptr<rpc_client> client = NULL;
+std::unique_ptr<rpc_node> node;
+static std::unique_ptr<rpc_client> client;
 
 int rpc_initialize(short nid) {
 
@@ -79,6 +73,9 @@ int rpc_request(short nid, const char *fname, const char *args, char *response, 
 	char *request_str = NULL;
 	cJSON *response_json = NULL;
 	char response_str[REP_BUF_MAXSIZE];
+	int res_seq = 0;
+	char *res_res = NULL;
+	char *res_ctx = NULL;
 
 	//build request
 	request_json = cJSON_CreateObject();
@@ -114,9 +111,9 @@ int rpc_request(short nid, const char *fname, const char *args, char *response, 
 
 	//parse response
 	response_json = cJSON_Parse(response_str);
-	int res_seq = cJSON_GetObjectItem(response_json, "seq")->valueint;
-	char *res_res = cJSON_GetObjectItem(response_json, "res")->valuestring;
-	char *res_ctx = cJSON_GetObjectItem(response_json, "ctx") ?
+	res_seq = cJSON_GetObjectItem(response_json, "seq")->valueint;
+	res_res = cJSON_GetObjectItem(response_json, "res")->valuestring;
+	res_ctx = cJSON_GetObjectItem(response_json, "ctx") ?
 		cJSON_GetObjectItem(response_json, "ctx")->valuestring : 0;
 
 	if (strlen(res_res) + 1 > response_len) {

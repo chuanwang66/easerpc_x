@@ -21,3 +21,8 @@ void os_sleep_ms(uint32_t duration)
 {
 	Sleep(duration);
 }
+
+void os_breakpoint(void)
+{
+        __debugbreak();
+}

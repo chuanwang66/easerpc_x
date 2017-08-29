@@ -32,6 +32,8 @@ extern "C" {
 
 EXPORT void os_sleep_ms(uint32_t duration);
 
+EXPORT void os_breakpoint(void);
+
 #ifdef __cplusplus
 }
 #endif

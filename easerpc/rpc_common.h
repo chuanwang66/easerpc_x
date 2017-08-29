@@ -6,5 +6,5 @@
 #ifdef _DEBUG
 #	define PRINT(...) fprintf(stdout, __VA_ARGS__);
 #else
-#	define PRINT(fmt) do {} while (0);
+#	define PRINT(...) do {} while (0);
 #endif
